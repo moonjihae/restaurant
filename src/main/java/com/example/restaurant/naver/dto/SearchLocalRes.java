@@ -18,7 +18,7 @@ public class SearchLocalRes {
 
     private int display;
 
-    private String category;
+
 
     private List<SearchLocalItem> items;
 
@@ -26,6 +26,7 @@ public class SearchLocalRes {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SearchLocalItem{
+        private String category;
         private String title;
         private String link;
         private String description;
