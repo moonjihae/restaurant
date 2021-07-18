@@ -31,5 +31,15 @@ public class WishListController {
         return wishListService.findAll();
     }
 
+    @DeleteMapping("/{index}")
+    public void delete (@PathVariable Long index){
+        wishListService.delete(index);
+    }
+
+    @PostMapping("/{index}")
+    public void addVisit(@PathVariable Long index){
+         wishListService.addVisit(index);
+    }
+
 
 }

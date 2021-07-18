@@ -9,6 +9,7 @@ import com.example.restaurant.wishlist.repository.WishListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,6 +61,22 @@ public class WishListService {
 
     }
 
+    public void delete(Long index){
+
+        wishListRepository.deleteById(index);
+    }
+
+    public void addVisit(Long index){
+        var wishItem=wishListRepository.findById(index);
+        if(wishItem.isPresent()){
+            var item=wishItem.get();
+            item.setVisit(true);
+            item.setVisitCount(item.getVisitCount()+1);
+            item.setLastVisitDate(LocalDateTime.now());
+            wishListRepository.save(item);
+        }
+    }
+
     private WishList dtoToEntity(WishListDto wishListDto){
         var entity=new WishList();
         entity.setId(wishListDto.getId());
@@ -91,7 +108,6 @@ public class WishListService {
     }
 
     public List<WishListDto> findAll(){
-
         return wishListRepository.findAll()
                 .stream()
                 .map(it->entityTODto(it))
